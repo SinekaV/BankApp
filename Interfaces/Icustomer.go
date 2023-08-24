@@ -15,4 +15,5 @@ type Icustomer interface {
 	GetAllCustomerTransaction(int64) (*[]models.CustTransaction, error)
 	GetAllCustomerTransactionByDate(int64, time.Time, time.Time) (*[]models.CustTransaction, error)
 	CreateTransaction(*models.CustTransaction) (*mongo.InsertOneResult, error)
+	GetAllTransactionSum(int64) (int64, error)
 }

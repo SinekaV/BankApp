@@ -139,3 +139,17 @@ func (c *Cust) CreateTransaction(transaction *models.CustTransaction) (*mongo.In
 	}
 	return result, nil
 }
+func (c *Cust)GetAllTransactionSum(id int64)(int64, error){
+	filter := bson.D{{Key: "customer_id", Value: id}}
+	var customer *models.Customer
+	res := c.mongoCollection.FindOne(c.ctx, filter)
+	err := res.Decode(&customer)
+	if err!=nil{
+		return 0,err
+	}
+	var sum int64 =0
+	for i:=0;i<len(customer.Transaction);i++{
+		sum += customer.Transaction[i].Transaction_amount
+	}
+	return sum,nil
+}
