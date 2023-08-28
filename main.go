@@ -55,6 +55,13 @@ func initLoan(mongoClient *mongo.Client){
 	routes.LoanRoute(server,lController)
 }
 
+func initTrans(mongoClient *mongo.Client){
+	ctx = context.TODO()
+	tService := service.InitTransaction(mongoClient, ctx)
+	tController := controllers.InitTransferController(tService)
+	routes.TransRoute(server,tController)
+}
+
 func main(){
 	server = gin.Default()
 	mongoclient,err :=config.ConnectDataBase()
@@ -67,6 +74,7 @@ func main(){
 	initAcc(mongoclient)
 	initBank(mongoclient)
 	initLoan(mongoclient)
+	initTrans(mongoclient)
 	fmt.Println("server running on port",constants.Port)
 	log.Fatal(server.Run(constants.Port))
 }

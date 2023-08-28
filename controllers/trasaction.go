@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	interfaces "BankApp/Interfaces"
+	"BankApp/Interfaces"
 	"BankApp/models"
 	"net/http"
 
